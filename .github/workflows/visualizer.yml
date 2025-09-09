@@ -1,17 +1,13 @@
 name: Generate MP3 Visualizer
 
 on:
-  workflow_dispatch:  # manual trigger
-  schedule:
-    - cron: '0 18 * * *'  # otomatis tiap jam 18 UTC
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       - name: Install dependencies
         run: |
@@ -21,7 +17,9 @@ jobs:
 
       - name: Setup Google Drive API
         run: |
-          echo "${{ secrets.DRIVE_API_JSON }}" > credentials.json
+          cat <<EOF > credentials.json
+${{ secrets.DRIVE_API_JSON }}
+EOF
 
       - name: Run Visualizer Script
         run: python visualizer.py
