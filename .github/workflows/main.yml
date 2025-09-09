@@ -1,9 +1,9 @@
-name: Generate Long MP3 Visualizer
+name: Generate MP3 Visualizer
 
 on:
-  workflow_dispatch: # manual trigger
+  workflow_dispatch:  # manual trigger
   schedule:
-    - cron: '0 18 * * *' # otomatis tiap jam 18 UTC
+    - cron: '0 18 * * *'  # otomatis tiap jam 18 UTC
 
 jobs:
   build:
@@ -17,7 +17,7 @@ jobs:
         run: |
           sudo apt-get update -y
           sudo apt-get install -y ffmpeg
-          pip install ffmpeg-python pydrive
+          pip install -r requirements.txt
 
       - name: Setup Google Drive API
         run: |
