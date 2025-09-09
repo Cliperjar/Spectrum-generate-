@@ -1,14 +1,14 @@
 name: Generate MP3 Visualizer
 
 on:
-  workflow_dispatch:
+  workflow_dispatch:  # Bisa dijalankan manual
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Install dependencies
@@ -17,11 +17,9 @@ jobs:
           sudo apt-get install -y ffmpeg
           pip install -r requirements.txt
 
-      - name: Setup Google Drive API
+      - name: Setup Google Drive API credentials
         run: |
-          cat <<EOF > credentials.json
-${{ secrets.DRIVE_API_JSON }}
-EOF
+          echo "${{ secrets.DRIVE_API_JSON }}" > credentials.json
 
       - name: Run Visualizer Script
         run: |
