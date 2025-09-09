@@ -6,8 +6,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
       - name: Install dependencies
         run: |
@@ -22,4 +24,5 @@ ${{ secrets.DRIVE_API_JSON }}
 EOF
 
       - name: Run Visualizer Script
-        run: python visualizer.py
+        run: |
+          python visualizer.py
