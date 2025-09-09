@@ -1,0 +1,27 @@
+name: Generate Long MP3 Visualizer
+
+on:
+  workflow_dispatch: # manual trigger
+  schedule:
+    - cron: '0 18 * * *' # otomatis tiap jam 18 UTC
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y ffmpeg
+          pip install ffmpeg-python pydrive
+
+      - name: Setup Google Drive API
+        run: |
+          echo "${{ secrets.DRIVE_API_JSON }}" > credentials.json
+
+      - name: Run Visualizer Script
+        run: python visualizer.py
